@@ -54,6 +54,7 @@ AGalaga_USFX_L02Pawn::AGalaga_USFX_L02Pawn()
 	bCanFire = true;
 	
 	controlBomba = CreateDefaultSubobject<UComp_ControlPawn>(TEXT("ControlNaveComponent"));
+	bombDisponibles = 0;
 }
 
 void AGalaga_USFX_L02Pawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
