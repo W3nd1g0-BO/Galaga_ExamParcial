@@ -19,6 +19,9 @@ const FName AGalaga_USFX_L02Pawn::MoveForwardBinding("MoveForward");
 const FName AGalaga_USFX_L02Pawn::MoveRightBinding("MoveRight");
 const FName AGalaga_USFX_L02Pawn::FireForwardBinding("FireForward");
 const FName AGalaga_USFX_L02Pawn::FireRightBinding("FireRight");
+const FName AGalaga_USFX_L02Pawn::SpawnBombBinding("SpawnBomb");
+
+class Comp_ControlPawn;
 
 AGalaga_USFX_L02Pawn::AGalaga_USFX_L02Pawn()
 {	
@@ -54,6 +57,7 @@ AGalaga_USFX_L02Pawn::AGalaga_USFX_L02Pawn()
 	bCanFire = true;
 	
 	controlBomba = CreateDefaultSubobject<UComp_ControlPawn>(TEXT("ControlNaveComponent"));
+	//controlBomba->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	bombDisponibles = 0;
 }
 
@@ -67,7 +71,7 @@ void AGalaga_USFX_L02Pawn::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindAxis(FireForwardBinding);
 	PlayerInputComponent->BindAxis(FireRightBinding);
 
-	PlayerInputComponent->BindAction("SpawnBomb", IE_Pressed, this, &AGalaga_USFX_L02Pawn::launchBomb);
+	PlayerInputComponent->BindAction(SpawnBombBinding, IE_Pressed, this, &AGalaga_USFX_L02Pawn::launchBomb);
 }
 
 void AGalaga_USFX_L02Pawn::Tick(float DeltaSeconds)
@@ -158,5 +162,12 @@ void AGalaga_USFX_L02Pawn::NotifyActorBeginOverlap(AActor* OtherActor)
 
 void AGalaga_USFX_L02Pawn::launchBomb()
 {
-	controlBomba->SpawnBomb();
+	FString mensaje= "Cantidad de bombas disponibles: " + bombDisponibles;
+
+	if(bombDisponibles != 0)
+	{
+		controlBomba->SpawnBomb();
+	}
+	//muestra en pantalla la cantidad de bombas disponibles
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,mensaje);
 }

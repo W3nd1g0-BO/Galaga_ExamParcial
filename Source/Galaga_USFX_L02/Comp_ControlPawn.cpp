@@ -6,6 +6,8 @@
 #include "Galaga_USFX_L02Pawn.h"
 #include "Kismet/GameplayStatics.h"
 
+class AGalaga_USFX_L02Pawn;
+class AGalaga_USFX_L02Bomba;
 
 // Sets default values for this component's properties
 UComp_ControlPawn::UComp_ControlPawn()
@@ -17,10 +19,7 @@ UComp_ControlPawn::UComp_ControlPawn()
 // Called when the game starts
 void UComp_ControlPawn::BeginPlay()
 {
-	if (Jugador!=nullptr)
-	{
-		Jugador = Cast<AGalaga_USFX_L02Pawn>(GetOwner());
-	}
+	Jugador = Cast<AGalaga_USFX_L02Pawn>(GetOwner());
 }
 
 
@@ -32,12 +31,14 @@ void UComp_ControlPawn::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	// ...
 }
 
+
 void UComp_ControlPawn::SpawnBomb()
 {
+	int bomb = Jugador->GetbombDisponibles();
+
 	if (Jugador != nullptr) 
 	{
-
-		if (Jugador->GetbombDisponibles() != 0 )
+		if (bomb != 0 )
 		{
 			const FVector SpawnLocation = GetOwner()->GetActorLocation();
 			const FRotator SpawnRotation = GetOwner()->GetActorRotation();
@@ -46,7 +47,7 @@ void UComp_ControlPawn::SpawnBomb()
 			if (World != nullptr)
 			{
 				World->SpawnActor<AGalaga_USFX_L02Bomba>(SpawnLocation, SpawnRotation);
-				
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Bomba lanzada"));
 				Jugador->SetbombDisponibles(Jugador->GetbombDisponibles() - 1);
 			}
 		}

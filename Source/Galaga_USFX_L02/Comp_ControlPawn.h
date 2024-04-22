@@ -26,6 +26,6 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 public:
 	void SpawnBomb();
-protected:
-	AGalaga_USFX_L02Pawn* Jugador = nullptr;
+private:
+	AGalaga_USFX_L02Pawn* Jugador;
 };

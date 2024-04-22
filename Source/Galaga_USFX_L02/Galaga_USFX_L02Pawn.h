@@ -6,13 +6,12 @@
 #include "GameFramework/Character.h"
 #include "Galaga_USFX_L02Pawn.generated.h"
 
-class Comp_ControlPawn;
 
 UCLASS(Blueprintable)
 class AGalaga_USFX_L02Pawn : public APawn
 {
 	GENERATED_BODY()
-
+public:
 	/* The mesh component */
 	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* ShipMeshComponent;
@@ -25,7 +24,7 @@ class AGalaga_USFX_L02Pawn : public APawn
 	UPROPERTY(Category = Camera, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
-
+	UPROPERTY(Category=Gameplay, EditAnywhere, BlueprintReadOnly)
 	class UComp_ControlPawn* controlBomba;
 
 public:
@@ -63,6 +62,7 @@ public:
 	static const FName MoveRightBinding;
 	static const FName FireForwardBinding;
 	static const FName FireRightBinding;
+	static const FName SpawnBombBinding;	
 
 private:
 
